@@ -1,0 +1,464 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Bilgi Yarismasi</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    var soru = 1, dogruCevap = 0;
+    var sayac1 = setInterval(say, 1000);
+    function sayac() {
+        saniye = 25;
+        $("#kronometre").html(saniye);
+    }
+
+    function say(){
+        saniye--;
+        if(saniye < 10){
+            $("#kronometre").html("0"+saniye);
+            if(saniye <=5 ){
+                $("#kronometre").css({"color":"red"});
+            }
+        }else
+            $("#kronometre").html(saniye);
+        if(saniye == 0){
+            soru++;
+            if(soru==3)
+                $("#video").html("");
+            basla();
+            $("#kronometre").css({"color":"white"});
+        }
+    }
+
+    var bButon = 0;
+    var calis = true;
+    function basla() {
+        calis = true;
+        bButon = 0;
+        $("#cevaplar").show();
+        $("#baslangic").hide();
+        sayac();
+        if(soru == 1){
+            $("#govde").css({"background-image":"url('images/indir.jpg')", "background-repeat":"no-repeat", "background-size":"80% 50%"});
+            $("#soru").html('Soru #'+soru+"<br><p style='text-align:center; font-size: 15px; font-weight: bold'>"+"ABD başkanlarından John Fitzgerald Kennedy’e suikast düzenleyerek öldüren kimdir?"+"</p>");
+            $("#1").html("Clay Shaw");
+            $("#2").html("Lee Harvey Oswald");
+            $("#3").html("Jack Ruby");
+            $("#4").html("Abraham Lincoln");
+        }else if(soru == 2){
+            $("#govde").css({"background-image":"none",});
+            $("#video").html('<video id = "video" controls autoplay loop style="position: absolute; width: 600px; height: 400px; margin-left: 15%;">\n' +
+                '            <source src="images/WhatsApp%20Video%202020-05-05%20at%2020.29.37.mp4" type="video/mp4">\n' +
+                '        </video>')
+            $("#soru").html('Soru #'+soru+"<br><p style='text-align:center; font-size: 15px; font-weight: bold'>"+"Videoda çalan şarkının adı nedir?"+"</p>");
+            $("#1").html("Frozen Time");
+            $("#2").html("American Boy");
+            $("#3").html("Impossible");
+            $("#4").html("Infinity");
+        }else if(soru == 3){
+            $("#govde").css({"background-image":"url('images/prise-du-palais-tuileries-bertaux-french-Axgm.jpg')", "background-repeat":"no-repeat", "background-size":"80% 50%" });
+            $("#soru").html('Soru #'+soru+"<br><p style='text-align:center; font-size: 15px; font-weight: bold'>"+"Fransız İhtilali kaç yılında gerçekleşmiştir?"+"</p>");
+            $("#1").html("1789-1799");
+            $("#2").html("1788-1789");
+            $("#3").html("1801-1803");
+            $("#4").html("1789-1804");
+        }else if(soru == 4){
+            $("#govde").css({"background-image":"url('images/во-все-тяжкие.jpg')", "background-repeat":"no-repeat", "background-size":"80% 50%"});
+            $("#soru").html('Soru #'+soru+"<br><p style='text-align:center; font-size: 15px; font-weight: bold'>"+"Hangisi periyodik cetvelde bulunan bir element değildir?"+"</p>");
+            $("#1").html("azot");
+            $("#2").html("oksijen");
+            $("#3").html("helyum");
+            $("#4").html("karbon");
+            $("#5").show();
+            $("#5").html("su")
+        }else if(soru == 5){
+            $("#govde").css({"background-image":"url('images/Resmi kapatmak için tıklayın, tıkla ve taşı_ Önceki ve Sonraki için okları kullanın_.jpg')", "background-repeat":"no-repeat", "background-size":"80% 50%"});
+            $("#soru").html('Soru #'+soru+"<br><p style='text-align:center; font-size: 15px; font-weight: bold'>"+"Bu hangi ülke tarafından basılmış bir banknottur?"+"</p>");
+            $("#1").html("Uygur Kağanlığı");
+            $("#2").html("Göktürk Kağanlığı");
+            $("#3").html("Selçuklu Devleti");
+            $("#4").html("Osmanlı Devleti");
+            $("#5").show();
+            $("#5").html("Türkiye Cumhuriyeti");
+        }else if(soru == 6){
+            $("#govde").css({"background-image":"url('images/Game Over, Loser_.jpg')", "background-repeat":"no-repeat", "background-size":"80% 50%"});
+            soru--;
+            $("#soru").css({"text-align":"center", "font-size":"25px", "font-weight":"bold"});
+            $("#soru").html("Final Score: "+dogruCevap+"/"+soru);
+            soru++;
+            $("#cevaplar").hide();
+            clearInterval(sayac1);
+        }
+        if(soru==6){
+            soru--;
+            $("#puanlama").html(dogruCevap+"/"+soru);
+        }else{
+            $("#puanlama").html(dogruCevap+"/"+soru);
+        }
+    }
+
+    function cevapKontrol(sayi) {
+        var cokluBasmaKontrol = true;
+        $(document).ready(function () {
+            $("#sonuc").show();
+            if(cokluBasmaKontrol){
+                cokluBasmaKontrol = false;
+                if(soru == 1 && bButon == 0){
+                    bButon++;
+                    if(sayi == 1){
+                        setTimeout(function () {
+                            $("#1").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#2").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 2){
+                        dogruCevap++;
+                        setTimeout(function () {
+                            $("#2").css({"background-color":"green"});
+                        }, 100)
+                        $("#sonuc").css({"color":"green"});
+                        $("#sonuc").html("Doğru");
+                    }else if(sayi == 3){
+                        setTimeout(function () {
+                            $("#3").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#2").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 4){
+                        setTimeout(function () {
+                            $("#4").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#2").css({"background-color":"green"});
+                        }, 1000)
+                    }
+                }else if(soru == 2 && bButon == 0){
+                    bButon++;
+                    if(sayi == 1){
+                        setTimeout(function () {
+                            $("#1").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#4").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 2){
+                        setTimeout(function () {
+                            $("#2").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#4").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 3){
+                        setTimeout(function () {
+                            $("#3").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#4").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 4){
+                        dogruCevap++;
+                        setTimeout(function () {
+                            $("#4").css({"background-color":"green"});
+                        }, 100)
+                        $("#sonuc").css({"color":"green"});
+                        $("#sonuc").html("Doğru");
+                    }
+                }else if(soru == 3 && bButon == 0){
+                    bButon++;
+                    if(sayi == 1){
+                        dogruCevap++;
+                        setTimeout(function () {
+                            $("#1").css({"background-color":"green"});
+                        }, 100)
+                        $("#sonuc").css({"color":"green"});
+                        $("#sonuc").html("Doğru");
+                    }else if(sayi == 2){
+                        setTimeout(function () {
+                            $("#2").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#1").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 3){
+                        setTimeout(function () {
+                            $("#3").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#1").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 4){
+                        setTimeout(function () {
+                            $("#4").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#1").css({"background-color":"green"});
+                        }, 1000)
+                    }
+                }else if(soru == 4 && bButon == 0){
+                    bButon++;
+                    if(sayi == 1){
+                        setTimeout(function () {
+                            $("#1").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#5").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 2){
+                        setTimeout(function () {
+                            $("#2").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#5").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 3){
+                        setTimeout(function () {
+                            $("#3").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#5").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 4){
+                        setTimeout(function () {
+                            $("#4").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#5").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 5){
+                        dogruCevap++;
+                        setTimeout(function () {
+                            $("#5").css({"background-color":"green"});
+                        }, 100)
+                        $("#sonuc").css({"color":"green"});
+                        $("#sonuc").html("Doğru");
+                    }
+                }else if(soru == 5 && bButon == 0){
+                    bButon++;
+                    if(sayi == 1){
+                        setTimeout(function () {
+                            $("#1").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#5").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 2){
+                        setTimeout(function () {
+                            $("#2").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#5").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 3){
+                        setTimeout(function () {
+                            $("#3").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#5").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 4){
+                        setTimeout(function () {
+                            $("#4").css({"background-color":"red"});
+                        }, 100)
+                        $("#sonuc").css({"color":"red"});
+                        $("#sonuc").html("Yanlis");
+                        setTimeout(function () {
+                            $("#5").css({"background-color":"green"});
+                        }, 1000)
+                    }else if(sayi == 5){
+                        dogruCevap++;
+                        setTimeout(function () {
+                            $("#5").css({"background-color":"green"});
+                        }, 100)
+                        $("#sonuc").css({"color":"green"});
+                        $("#sonuc").html("Doğru");
+                    }
+                }
+                cokluBasmaKontrol = false;
+                if(bButon == 2)
+                    calis = false;
+                bButon++;
+            }
+            if(calis)
+                setTimeout(function () {
+                    cokluBasmaKontrol = true;
+                    soru++;
+                    $("#1").css({"background-color":"#B7D7D8"});
+                    $("#2").css({"background-color":"#B7D7D8"});
+                    $("#3").css({"background-color":"#B7D7D8"});
+                    $("#4").css({"background-color":"#B7D7D8"});
+                    $("#5").css({"background-color":"#B7D7D8"});
+                    $("#sonuc").hide();
+                    $("#video").html("");
+                    basla();
+                }, 2000)
+        })
+    }
+
+
+</script><style type="text/css">
+    body{
+        background-color:#f1b0b7;
+        background-image: url("images/PC WALLPAPERS For more quality click to the link! And DOWNLOAD them from the Vlog_.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .baslik{
+        color: #6610f2;
+
+        text-align: center;
+        font-size: 50px;
+        font-weight: bold;
+        text-shadow: white;
+        text-shadow: 10px 10px 10px whitesmoke;
+        font-family: "Comic Sans MS";
+
+    }
+    .govde{
+        position: fixed;
+        width: 85%;
+        height: 850px;
+        margin-left: 2%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        background-repeat: no-repeat;
+        background-size: 600px;
+    }
+    .sorukutusu{
+        font-weight: bold;
+        position: absolute;
+        font-size: 17px;
+        margin-top: 24%;
+        left: 250px;
+        height: 140px;
+        opacity: 1;
+        background-color: black;
+        color: white;
+        padding: 15px;
+        border-radius: 25px;
+        border-color: #6610f2;
+
+
+    }
+    input[type=button]{
+        background-color: #6610f2;
+        float: right;
+        margin-right: 5%;
+        margin-top: 10%;
+        width: 220px;
+        height: 100px;
+        font-size: 25px;
+        font-weight: bold;
+        font-family: "Comic Sans MS";
+        border-radius: 25px;
+    }
+    .puansure{
+        position: absolute;
+        color: black;
+        background-color: deepskyblue;
+        opacity: 0.8;
+        margin-top: 20%;
+        width: 250px;
+        height: 180px;
+        padding: 25px;
+        font-weight: bold;
+        font-size: 20px;
+        font-family: "Comic Sans MS";
+        border-radius: 25px;
+        left: 1400px;
+    }
+    .cevaplar{
+        position: absolute;
+        background-color: black;
+        opacity: 0.9;
+        color: white;
+        margin-top: 34%;
+        width: 920px;
+        height: 150px;
+        padding: 25px;
+        font-weight: bold;
+        font-size: 20px;
+        margin-left: 13%;
+        border-radius: 25px;
+
+    }
+    button{
+        position: absolute;
+        font-size: 15px;
+        font-weight: bold;
+        height: 75px;
+        width: 200px;
+        background-color: #6610f2;
+        border-radius: 25px;
+    }
+</style></head>
+
+
+
+
+<body>
+<div class="baslik">Bilgi Yarismasi</div>
+
+<div class="govde" id="govde" style="background-image: url('images/large aesthetic tumblr backgrounds 2333x1458.jpg')">
+</div>
+    <p id="video"></p>
+    <div id="sorukutusu" class="sorukutusu">
+        <p id="soru">
+            Kurallar:<br><br>
+            Süre bitmeden soruları cevaplayın.<br><br>
+            Doğru bilirseniz şık yeşil yanacaktır.<br><br>
+            Yanlış bilirseniz şık kırmızı yanacaktır ve doğru şık yeşil yanacaktır.
+        </p>
+    </div>
+
+
+<input type="button" id="baslangic" onclick="basla()" value="Yarışmaya başla">
+
+<div class="puansure">
+    <p>Puan Tablosu:</p>
+    <ul><i id="puanlama">0/0</i></ul>
+    <p>Kalan Süreniz :</p>
+    <ul><i>00:<i id="kronometre" style="color: white">00</i></i></ul>
+</div>
+
+<div class="cevaplar" id="cevaplar" hidden="">
+    <button id="1" onclick="cevapKontrol(1)"><i id="cevap1"></i></button>
+    <button id="2" onclick="cevapKontrol(2)" style="margin-left: 25%"><i id="cevap2"></i></button>
+    <button id="3" onclick="cevapKontrol(3)" style="margin-left: 50%"><i id="cevap3"></i></button>
+    <button id="4" onclick="cevapKontrol(4)" style="margin-left: 75%"><i id="cevap4"></i></button>
+    <button id="5" onclick="cevapKontrol(5)" style="margin-left: 38%; margin-top: 8.5%" hidden=""><i id="cevap5"></i></button>
+    <p id="sonuc" style="float: right; margin-top: 13%"></p>
+</div>
+
+</body></html>
